@@ -1,7 +1,14 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { SUGGESTED_KEYWORDS } from "@/lib/constants";
+const CHIPS = [
+  "살냄새",
+  "여름 출근용",
+  "호텔 로비 향",
+  "비오는 날 도서관",
+  "첫 데이트의 떨림",
+  "늦가을 산책",
+  "새벽 1시의 잠옷",
+];
 
 interface SuggestedKeywordsProps {
   onSelect: (keyword: string) => void;
@@ -9,18 +16,43 @@ interface SuggestedKeywordsProps {
 
 export function SuggestedKeywords({ onSelect }: SuggestedKeywordsProps) {
   return (
-    <div className="w-full">
-      <p className="text-xs text-muted-foreground mb-3 font-medium tracking-wide uppercase">
-        이런 향수를 찾고 계신가요?
+    <div style={{ marginTop: 40 }}>
+      <p style={{
+        fontSize: 11,
+        letterSpacing: "0.32em",
+        textTransform: "uppercase",
+        color: "var(--mute)",
+        marginBottom: 18,
+        textAlign: "center",
+      }}>
+        People Also Searched
       </p>
-      <div className="flex flex-wrap gap-2">
-        {SUGGESTED_KEYWORDS.map((item) => (
+      <div style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 10,
+        justifyContent: "center",
+        maxWidth: 760,
+        margin: "0 auto",
+      }}>
+        {CHIPS.map((chip) => (
           <button
-            key={item.label}
-            onClick={() => onSelect(item.label)}
-            className="group flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/50 bg-muted/30 hover:bg-muted hover:border-border text-sm text-foreground/70 hover:text-foreground transition-all cursor-pointer"
+            key={chip}
+            onClick={() => onSelect(chip)}
+            style={{
+              padding: "9px 20px",
+              border: "1px solid var(--ink)",
+              borderRadius: 999,
+              background: "transparent",
+              font: `400 14px var(--sans)`,
+              color: "var(--ink)",
+              letterSpacing: "-0.005em",
+              transition: "transform 0.18s ease",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = ""; }}
           >
-            <span>{item.label}</span>
+            {chip}
           </button>
         ))}
       </div>

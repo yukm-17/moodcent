@@ -1,26 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import type { SearchResult, ApiPerfume } from "@/types";
+import type { SearchResult } from "@/types";
 
 const PERFUM_API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:9000";
 
-interface SearchResponse {
-  count: number;
-  perfumes: ApiPerfume[];
-}
-
 export async function POST(req: NextRequest) {
-  const { query } = await req.json().catch(() => ({}));
+  const { query, limit = 20, offset = 0 } = await req.json().catch(() => ({}));
 
   if (!query?.trim()) {
     return NextResponse.json({ error: "검색어를 입력해주세요." }, { status: 400 });
   }
 
-  let data: SearchResponse;
+  let data: SearchResult;
   try {
     const res = await fetch(`${PERFUM_API_BASE}/search`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, limit, offset }),
     });
     if (!res.ok) throw new Error(`PerfumAPI ${res.status}`);
     data = await res.json();
@@ -32,11 +27,5 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const result: SearchResult = {
-    keyword: query,
-    perfumes: data.perfumes,
-    total: data.count,
-  };
-
-  return NextResponse.json(result);
+  return NextResponse.json(data);
 }

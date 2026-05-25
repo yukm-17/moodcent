@@ -117,14 +117,29 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ── Moodcent design tokens ── */
+:root {
+  --purple: #6C3F91;
+  --ink:    #3E454F;
+  --paper:  #F5F7F9;
+  --line:   rgba(62,69,79,.16);
+  --mute:   rgba(62,69,79,.55);
+  --sans:   "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Malgun Gothic", system-ui, sans-serif;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
   body {
-    @apply bg-background text-foreground;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
   }
-  html {
-    @apply font-sans;
-  }
+  button { font-family: inherit; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
 }

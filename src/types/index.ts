@@ -23,9 +23,11 @@ export interface ApiPerfume {
 }
 
 export interface SearchResult {
-  keyword: string;
-  perfumes: ApiPerfume[];
   total: number;
+  limit: number;
+  offset: number;
+  has_more: boolean;
+  perfumes: ApiPerfume[];
 }
 
 export interface SuggestedKeyword {

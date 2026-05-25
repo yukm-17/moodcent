@@ -1,10 +1,14 @@
 import type { SearchResult } from "@/types";
 
-export async function searchPerfumes(query: string): Promise<SearchResult> {
+export async function searchPerfumes(
+  query: string,
+  limit = 20,
+  offset = 0,
+): Promise<SearchResult> {
   const res = await fetch("/api/search", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, limit, offset }),
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
