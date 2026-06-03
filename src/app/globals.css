@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-pretendard);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -124,7 +124,7 @@
   --paper:  #F5F7F9;
   --line:   rgba(62,69,79,.16);
   --mute:   rgba(62,69,79,.55);
-  --sans:   "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Malgun Gothic", system-ui, sans-serif;
+  --sans:   var(--font-pretendard), "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Malgun Gothic", system-ui, sans-serif;
 }
 
 @layer base {
