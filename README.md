@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Moodcent
 
-## Getting Started
+한국어 감성 표현으로 향수를 찾는 서비스. "비 오는 날 도서관", "살냄새 나는 포근한 향" 같은 문장으로 검색하면 분위기에 맞는 향수를 추천해준다.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 페이지 구조
+
+| 경로 | 설명 |
+|------|------|
+| `/` | 히어로 랜딩 — 웨이브 애니메이션 + 검색창 |
+| `/search?q=...` | 검색 결과 그리드 (무한 스크롤) |
+| `/search/[slug]` | 향수 상세 — 노트, 어코드, 무드 |
+
+## 플로우
+
+```
+검색어 입력
+    ↓
+POST /api/search  →  PerfumAPI (Render.com)
+    ↓
+4열 카드 그리드  →  스크롤 시 다음 페이지 자동 로드 (offset 기반)
+    ↓
+카드 클릭  →  /search/[slug]
+              ├─ 캐시 있으면 즉시 렌더
+              └─ 없으면 GET /api/perfume/[slug]  →  PerfumAPI
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 기술 스택
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 영역 | 사용 기술 |
+|------|-----------|
+| 프레임워크 | Next.js 16 (App Router) |
+| 언어 | TypeScript |
+| 스타일 | Tailwind CSS v4, CSS 커스텀 프로퍼티 |
+| 서버 상태 | TanStack Query v5 (`useInfiniteQuery`) |
+| 애니메이션 | Framer Motion v12 |
+| 백엔드 API | PerfumAPI (FastAPI, Render.com 배포) |
+| DB | Supabase (검색 사전) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 환경변수
 
-## Learn More
+```bash
+NEXT_PUBLIC_API_URL=https://your-service.onrender.com
 
-To learn more about Next.js, take a look at the following resources:
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 로컬 실행
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install
+npm run dev
+```
