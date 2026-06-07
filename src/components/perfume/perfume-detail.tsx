@@ -148,8 +148,8 @@ export function PerfumeDetail({ perfume }: PerfumeDetailProps) {
         {perfume.accords.length > 0 && (
           <Section title="Accords">
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              {perfume.accords.map((a, i) => (
-                <Pill key={a} label={a} dark={i === 0} />
+              {perfume.accords.map((a) => (
+                <Pill key={a} label={a} />
               ))}
             </div>
           </Section>
@@ -166,29 +166,6 @@ export function PerfumeDetail({ perfume }: PerfumeDetailProps) {
           </Section>
         )}
 
-        {/* CTA */}
-        <div style={{ display: "flex", gap: 12, marginTop: 56, alignItems: "center" }}>
-          <button style={{
-            padding: "16px 28px",
-            border: "1px solid var(--ink)",
-            borderRadius: 999,
-            background: "var(--ink)", color: "var(--paper)",
-            font: `500 14px var(--sans)`,
-            letterSpacing: "0.04em",
-          }}>
-            SAVE TO MY SHELF
-          </button>
-          <button style={{
-            padding: "16px 28px",
-            border: "1px solid var(--ink)",
-            borderRadius: 999,
-            background: "transparent", color: "var(--ink)",
-            font: `500 14px var(--sans)`,
-            letterSpacing: "0.04em",
-          }}>
-            REQUEST A SAMPLE
-          </button>
-        </div>
       </div>
     </div>
   );
