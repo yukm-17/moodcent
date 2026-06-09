@@ -27,5 +27,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  if (process.env.NODE_ENV === "production") {
+    data.perfumes = data.perfumes.map((p) =>
+      p.image_url?.includes("fimgs") ? { ...p, image_url: null } : p
+    );
+  }
+
   return NextResponse.json(data);
 }

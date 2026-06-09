@@ -25,5 +25,9 @@ export async function GET(
     );
   }
 
+  if (process.env.NODE_ENV === "production" && data.image_url?.includes("fimgs")) {
+    data.image_url = null;
+  }
+
   return NextResponse.json(data);
 }
